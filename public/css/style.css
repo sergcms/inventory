@@ -1,0 +1,44 @@
+.btn-edit, .btn-delete {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .2rem .5rem;
+    font-size: .9rem;
+    line-height: 1.6;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn-edit {
+    color: #fff;
+    background-color: #3490dc;
+    border-color: #3490dc;
+}
+.btn-edit:hover {    
+    color: #fff;
+    background-color: #245c8a;
+    border-color: #2176bd;
+}
+.btn-delete {
+    color: #fff;
+    background-color: #ef2e28;
+    border-color: #e3342f;
+}
+.btn-delete:hover {
+    color: #fff;
+    background-color: #d0211c;
+    border-color: #c51f1a;
+}
+.device-img {
+    max-width: 500px;
+    max-height: 500px;
+}
+.device-characteristics li span {
+    font-weight: bold;
+}

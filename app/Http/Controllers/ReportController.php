@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class ReportController extends Controller
 {
     /**
-     * show form report
+     * show form report device or department
      */
     public function showForm(Request $request)
     {
@@ -31,19 +31,29 @@ class ReportController extends Controller
         return view('form.report', ['list' => $list, 'isdevice' => $isDevice]);
     }
 
+    /**
+     * show report table device or department
+     */
     public function showReport(Request $request)
     {
         if ($request->isdevice) {
             $list = DB::table('cards')
-            ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
-            ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
-            ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
-            ->where('devices.id', $request->search)
-            ->orderBy('cards_id')->get();
+                ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
+                ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
+                ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
+                ->where('devices.id', $request->search)
+                ->orderBy('cards_id')->get();
 
-
+            $name = Device::where('device.id', $request->search)->first()->device;
         } else {
-            $list = Department::where('id', $request->search)->first();
+            $list = DB::table('cards')
+                ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
+                ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
+                ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
+                ->where('departments.id', $request->search)
+                ->orderBy('cards_id')->get();
+
+            $name = Department::where('departments.id', $request->search)->first()->department;
         }
 
         $count = 0;
@@ -51,9 +61,7 @@ class ReportController extends Controller
         foreach ($list as $item) {
             $count++;    
         }
-
-        $name = $request->isdevice ? $list[0]->device : $list[0]->department;
-
+        
         return view('report.devices', ['devices' => $list, 'name' => $name, 'count' => $count, 'isdevice' => $request->isdevice]);
     }
     

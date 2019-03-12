@@ -7,7 +7,7 @@
         <a href="{{ route('department-create') }}" class="btn btn-info text-white">Создать отдел</a>
     </div>
     <div class="row justify-content-center">
-        <table class="table table-hover">
+        <table class="table table-hover table-responsive">
             <thead>
             <tr>
                 {{-- <th width=10%>ID</th> --}}

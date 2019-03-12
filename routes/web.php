@@ -13,9 +13,14 @@
 
 Route::get('/', function () { return view('welcome'); });
 
-Auth::routes();
+// Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/register', function () { return view('welcome'); });
+
+Route::get('recaptchacreate', 'RecaptchaController@create');
+Route::post('store', 'RecaptchaController@store');
 
 Route::prefix("/department")->middleware(['auth'])->group(function () {
     
@@ -69,4 +74,4 @@ Route::prefix("/report")->middleware(['auth'])->group(function () {
     Route::post('/department', 'ReportController@showReport')->name('report-department');
 });
 
-Route::get('/report/{id}', 'CardController@report')->name('info');
+Route::get('/report/{id}', 'ReportController@report')->name('info');

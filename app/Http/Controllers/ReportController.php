@@ -31,6 +31,24 @@ class ReportController extends Controller
         return view('form.report', ['list' => $list, 'isdevice' => $isDevice]);
     }
 
+     /**
+     * show one card device
+     */
+    public function report($id)
+    {
+        $device = DB::table('cards')
+            ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id')
+            ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
+            ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
+            ->where('cards.id', $id)->first();
+        
+        if (empty($device)) {
+            abort(404);
+        }
+       
+        return view('device', ['device' => $device]);
+    }
+
     /**
      * show report table device or department
      */
@@ -44,7 +62,7 @@ class ReportController extends Controller
                 ->where('devices.id', $request->search)
                 ->orderBy('cards_id')->get();
 
-            $name = Device::where('device.id', $request->search)->first()->device;
+                $name = Device::where('devices.id', $request->search)->first()->device;
         } else {
             $list = DB::table('cards')
                 ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
@@ -64,5 +82,4 @@ class ReportController extends Controller
         
         return view('report.devices', ['devices' => $list, 'name' => $name, 'count' => $count, 'isdevice' => $request->isdevice]);
     }
-    
 }

@@ -6,7 +6,9 @@
         <h2>{{ $device->device }}</h2>
     </div> --}}
     <div class="row mt-3 flex-column">
-            <img src="/storage{{ $device->photo }}" alt="" class="device-img">
+        @if ($device->photo != '')
+            <img src="/storage{{ $device->photo }}" alt="" class="device-img">             
+        @endif             
         <ul class="device-characteristics">
             <li>Инв. №: <span>{{ $device->inventory }}</span></li>
             <li>Устройство: <span>{{ $device->device }}</span></li>

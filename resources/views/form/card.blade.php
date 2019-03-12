@@ -119,7 +119,11 @@
                             <div class="col-md-6">
                                 <select class="form-control" id="condition" name="condition">
                                     @foreach ($status as $item)
-                                        <option value="{{ $item }}" {{ $device->condition == $item ? 'selected' : '' }} >{{ $item }}</option>    
+                                        @if (isset($device->condition))
+                                            <option value="{{ $item }}" {{ $device->condition == $item ? 'selected' : '' }} >{{ $item }}</option>    
+                                        @else
+                                            <option value="{{ $item }}">{{ $item }}</option>    
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

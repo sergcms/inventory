@@ -89,7 +89,7 @@ class CardController extends Controller
             'photo' => $pathImage,
         ]);
         
-        return redirect(route('device'));
+        return redirect(route('card'));
     }
 
     /**

@@ -8,6 +8,16 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="login-error alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div><br />
+                    @endif
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -34,6 +44,21 @@
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="ReCaptcha" class="col-md-4 col-form-label text-md-right">{{ __('Recaptcha') }}</label>
+
+                            <div class="col-md-6">
+                                {!! NoCaptcha::renderJs() !!}
+                                {!! NoCaptcha::display() !!}
+
+                                @if ($errors->has('ReCaptcha'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('ReCaptcha') }}</strong>
                                     </span>
                                 @endif
                             </div>

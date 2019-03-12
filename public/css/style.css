@@ -1,3 +1,9 @@
+.login-error.alert {
+    padding: 0;
+}
+.login-error.alert > ul {
+    margin: 5px;
+}
 .btn-edit, .btn-delete {
     display: inline-block;
     font-weight: 400;
@@ -42,3 +48,10 @@
 .device-characteristics li span {
     font-weight: bold;
 }
+
+@media(max-width:768px) {
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+} 

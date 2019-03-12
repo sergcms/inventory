@@ -27,8 +27,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                <a class="navbar-brand" href="{{ url('/card') }}">
                     ТД "ЛогинС"
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -44,8 +43,7 @@
                     @else
                         <ul class="navbar-nav ml-5">
                             <li class="nav-item"> <a class="nav-link {{ url()->current() === route('department') ? 'active disabled' : '' }}" href="{{ route('department') }}">Отделы</a> </li>
-                            <li class="nav-item"> <a class="nav-link {{ url()->current() === route('device') ? 'active disabled' : '' }}" href="{{ route('device') }}">Устройства</a> </li>
-                            <li class="nav-item"> <a class="nav-link {{ url()->current() === route('card') ? 'active disabled' : '' }}" href="{{ route('card') }}">Характеристики</a> </li>
+                            <li class="nav-item"> <a class="nav-link {{ url()->current() === route('card') ? 'active disabled' : '' }}" href="{{ route('card') }}">Устройства</a> </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Отчеты

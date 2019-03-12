@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-content-center mt-5">
         @if ($devices->isNotEmpty())
-            <table class="table table-hover">
+            <table class="table table-hover table-responsive">
                 <thead>
                 <tr>
                     <th width=10%>ID</th>

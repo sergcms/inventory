@@ -42,6 +42,9 @@
                         </ul>
                     @else
                         <ul class="navbar-nav ml-5">
+                            @if (auth()->user()->role == 'admin')
+                                <li class="nav-item"> <a class="nav-link {{ url()->current() === route('user') ? 'active disabled' : '' }}" href="{{ route('user') }}">Пользователи</a> </li>
+                            @endif
                             <li class="nav-item"> <a class="nav-link {{ url()->current() === route('department') ? 'active disabled' : '' }}" href="{{ route('department') }}">Отделы</a> </li>
                             <li class="nav-item"> <a class="nav-link {{ url()->current() === route('card') ? 'active disabled' : '' }}" href="{{ route('card') }}">Устройства</a> </li>
                             <li class="nav-item dropdown">

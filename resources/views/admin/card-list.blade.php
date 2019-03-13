@@ -31,8 +31,8 @@
                     <td>{{ $device->department }}</td>
                     <td>{{ $device->condition }}</td>
                     <td>
-                        <a href="{{ route('card-edit', [$device->id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
-                        <a href="{{ route('card-delete', [$device->id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
+                        <a href="{{ route('card-edit', [$device->cards_id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
+                        <a href="{{ route('card-delete', [$device->cards_id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
             @endforeach

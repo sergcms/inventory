@@ -25,8 +25,8 @@
                     <td>{{ $oneDepartment->address ?? '-'}}</td>
                     <td>{{ $oneDepartment->name ?? auth()->user()->name }}</td>
                     <td>
-                        <a href="{{ route('department-edit', [$oneDepartment->id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
-                        <a href="{{ route('department-delete', [$oneDepartment->id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
+                        <a href="{{ route('department-edit', [$oneDepartment->department_id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
+                        <a href="{{ route('department-delete', [$oneDepartment->department_id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
             @endforeach

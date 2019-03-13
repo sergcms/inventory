@@ -30,6 +30,7 @@ class DeviceController extends Controller
     public function list()
     {
         $devices = Device::all();
+
         return view('admin.device-list', ['devices' => $devices]);
     }
 
@@ -50,10 +51,12 @@ class DeviceController extends Controller
      */
     public function create(Request $request)
     {
-        // $this->validator($request);
+        $this->validator($request);
+
         Device::create([
             'device' => $request->device,
         ]);
+
         return redirect(route('device'));
     }
 
@@ -62,11 +65,13 @@ class DeviceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->validator($request);
+        $this->validator($request);
+
         Device::where('id', $id)
             ->update([
             'device' => $request->device,
         ]);
+        
         return redirect(route('device'));
     }
 

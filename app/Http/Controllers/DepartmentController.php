@@ -20,7 +20,7 @@ class DepartmentController extends Controller
     {
         $fields = [
             'department' => ['required', 'string', 'min:3', 'max:50',
-                // Rule::unique('departments')->ignore($request->id),
+                Rule::unique('departments')->ignore($request->id),
             ], 
         ];
         

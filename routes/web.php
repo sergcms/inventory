@@ -13,16 +13,16 @@
 
 Route::get('/', function () { return view('welcome'); });
 
-// Auth::routes();
-Auth::routes(['register' => false]);
+Auth::routes();
+// Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/register', function () { return view('welcome'); });
+// Route::get('/register', function () { return view('welcome'); });
 
 Route::get('recaptchacreate', 'RecaptchaController@create');
 Route::post('store', 'RecaptchaController@store');
 
-Route::prefix("/department")->middleware(['auth'])->group(function () {
+Route::prefix("/department")->middleware(['auth', 'isblock', 'role:admin'])->group(function () {
     
     Route::get('/', 'DepartmentController@list')->name('department');    
         
@@ -35,7 +35,7 @@ Route::prefix("/department")->middleware(['auth'])->group(function () {
     Route::get('/delete/{id}', 'DepartmentController@delete')->name('department-delete');
 });
 
-Route::prefix("/device")->middleware(['auth'])->group(function () {
+Route::prefix("/device")->middleware(['auth', 'isblock'])->group(function () {
     
     Route::get('/', 'DeviceController@list')->name('device');    
         
@@ -48,7 +48,7 @@ Route::prefix("/device")->middleware(['auth'])->group(function () {
     Route::get('/delete/{id}', 'DeviceController@delete')->name('device-delete');
 });
 
-Route::prefix("/card")->middleware(['auth'])->group(function () {
+Route::prefix("/card")->middleware(['auth', 'isblock'])->group(function () {
     
     Route::get('/', 'CardController@list')->name('card');    
         
@@ -65,7 +65,7 @@ Route::prefix("/report")->middleware(['auth'])->group(function () {
    
     Route::get('/', 'DeviceController@show');
 
-    // Route::get('/{id}', 'DeviceController@report')->name('info');
+    Route::get('/{id}', 'ReportController@report')->name('info');
 
     Route::get('/device', 'ReportController@showForm')->name('show-form-report-device');
     Route::post('/device', 'ReportController@showReport')->name('report-device');
@@ -74,4 +74,17 @@ Route::prefix("/report")->middleware(['auth'])->group(function () {
     Route::post('/department', 'ReportController@showReport')->name('report-department');
 });
 
-Route::get('/report/{id}', 'ReportController@report')->name('info');
+Route::prefix("/user")->middleware(['auth', 'role:admin'])->group(function () {
+   
+    Route::get('/', 'UserController@list')->name('user');    
+        
+    Route::get('/create', 'UserController@showForm');
+    Route::post('/create', 'UserController@create')->name('user-create');
+    
+    Route::get('/edit/{id}', 'UserController@showForm')->name('user-edit');
+    Route::post('/edit/{id}', 'UserController@update')->name('user-update');
+    
+    Route::get('/delete/{id}', 'UserController@delete')->name('user-delete');
+});
+
+// Route::get('/report/{id}', 'ReportController@report')->name('info');

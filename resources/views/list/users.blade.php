@@ -8,7 +8,7 @@
             <a href="{{ route('user-create') }}" class="btn btn-info text-white ml-2">Добавить пользователя</a>
         </div>   
     </div>
-    <div class="row justify-content-center">
+    <div class="row">
         <table class="table table-hover table-responsive">
             <thead>
             <tr>

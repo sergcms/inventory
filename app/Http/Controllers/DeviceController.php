@@ -31,13 +31,13 @@ class DeviceController extends Controller
     {
         $devices = Device::all();
 
-        return view('admin.device-list', ['devices' => $devices]);
+        return view('list.devices', ['devices' => $devices]);
     }
 
     /**
      * show form for create or edit device
      */
-    public function show($id = '')
+    public function showForm($id = '')
     {
         if ($id) {
             $device = Device::find($id);

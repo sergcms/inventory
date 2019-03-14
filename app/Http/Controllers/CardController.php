@@ -20,9 +20,10 @@ class CardController extends Controller
     protected function validator(Request $request)
     {
         $fields = [
-            'device' => ['required', 'string', 'min:3', 'max:50',
+            'inventory' => ['required', 'string', 'min:3', 'max:50',
                 Rule::unique('cards')->ignore($request->id),
             ],            
+            'model' => ['required', 'string', 'min:3'],
         ];
         
         return Validator::make($request->all(), $fields)->validate();
@@ -39,13 +40,13 @@ class CardController extends Controller
                 ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
                 ->orderBy('cards_id')->get();
 
-        return view('admin.card-list', ['devices' => $devices]);
+        return view('list.cards', ['devices' => $devices]);
     }
     
     /**
      * show form for create or edit card device
      */
-    public function show($id = '')
+    public function showForm($id = '')
     {
         $devices = Device::get();
         $departments = Department::get();
@@ -69,9 +70,9 @@ class CardController extends Controller
      */
     public function create(Request $request)
     {
-        // $this->validator($request);        
-        
-        if (!$request->file('photo')) {
+        $this->validator($request);        
+       
+        if ($request->file('photo')) {
             $pathImage = $this->saveImage($request->file('photo'));
         } else {
             $pathImage = $request->file('photo');
@@ -97,9 +98,9 @@ class CardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $this->validator($request);
+        $this->validator($request);
+        
         if ($request->file('photo')) {
-            // dd($request->file('photo'));
             $pathImage = $this->saveImage($request->file('photo'));
         } else {
             $device = Card::where('id', $id)->first();

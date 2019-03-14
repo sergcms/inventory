@@ -41,13 +41,13 @@ class DepartmentController extends Controller
             $departments = User::find(auth()->user()->id)->departments;
         }
         
-        return view('admin.department-list', ['departments' => $departments,]);
+        return view('list.departments', ['departments' => $departments,]);
     }
        
     /**
      * show form for create or edit department
      */
-    public function show($id = '')
+    public function showForm($id = '')
     {
         if ($id) {
             $department = Department::find($id);

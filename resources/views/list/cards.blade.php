@@ -10,7 +10,7 @@
             <a href="{{ route('card-create') }}" class="btn btn-info text-white ml-2">Добавить характеристики</a>
         </div>   
     </div>
-    <div class="row justify-content-center">
+    <div class="row">
         <table class="table table-hover table-responsive">
             <thead>
             <tr>
@@ -38,6 +38,10 @@
             @endforeach
             </tbody>
         </table>
+        <div class="alert alert-dark w-100" role="alert">
+            Количество записей: <strong class="text-danger">{{ $devices->count() }}</strong>
+        </div>
+        <p></p>
     </div>
 </div>
 @endsection

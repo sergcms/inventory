@@ -5,7 +5,7 @@
     <div class="row justify-content-between align-items-start">
         <h2>По {{ $isdevice ? 'устройству' : 'отделу' }}  <strong>{{ $name }}</strong> найдено - {{ $count }} записи(ей)!</h2>          
     </div>
-    <div class="row justify-content-center mt-5">
+    <div class="row mt-5">
         @if ($devices->isNotEmpty())
             <table class="table table-hover table-responsive">
                 <thead>

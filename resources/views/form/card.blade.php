@@ -102,7 +102,7 @@
                             <label for="characteristic" class="col-md-4 col-form-label text-md-right">Характеристики</label>
 
                             <div class="col-md-6">
-                                <input id="characteristic" type="text" class="form-control{{ $errors->has('characteristic') ? ' is-invalid' : '' }}" name="characteristic" value="{{ $device->characteristic ?? old('characteristic') }}" required autofocus>
+                                <input id="characteristic" type="text" class="form-control{{ $errors->has('characteristic') ? ' is-invalid' : '' }}" name="characteristic" value="{{ $device->characteristic ?? old('characteristic') }}" autofocus>
 
                                 @if ($errors->has('characteristic'))
                                     <span class="invalid-feedback" role="alert">

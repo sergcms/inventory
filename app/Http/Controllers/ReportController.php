@@ -46,7 +46,7 @@ class ReportController extends Controller
             abort(404);
         }
        
-        return view('device', ['device' => $device]);
+        return view('report.card', ['device' => $device]);
     }
 
     /**

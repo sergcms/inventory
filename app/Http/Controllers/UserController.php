@@ -34,7 +34,7 @@ class UserController extends Controller
     {
         $users = User::get();
 
-        return view('admin.user-list', ['users' => $users]);
+        return view('list.users', ['users' => $users]);
     }
 
     /**
@@ -79,7 +79,8 @@ class UserController extends Controller
         User::where('id', $id)
             ->update([
             'name' => $request->name,
-            'email' => $request->email,            
+            'email' => $request->email,    
+            // 'password' => Hash::make($request->password),
             'role' => $request->role, 
             'isblock' => $request->isblock === '1' ? 1 : 0,
         ]);

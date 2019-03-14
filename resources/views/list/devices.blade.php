@@ -6,7 +6,7 @@
         <h2>Список устройств</h2>
         <a href="{{ route('device-create') }}" class="btn btn-info text-white">Добавить устройство</a>
     </div>
-    <div class="row justify-content-center">
+    <div class="row">
         <table class="table table-hover table-responsive">
             <thead>
             <tr>

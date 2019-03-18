@@ -14,6 +14,8 @@ class ReportController extends Controller
      */
     public function showForm(Request $request)
     {
+        $list = [];
+        
         if ($request->getPathInfo() == "/report/department") {
             $isDevice = false;
 

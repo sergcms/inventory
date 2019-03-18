@@ -11,14 +11,14 @@
         </div>   
     </div>
     <div class="row">
-        <table class="table table-hover table-responsive">
+        <table class="table table-hover table-responsive" id="cards">
             <thead>
             <tr>
                 <th width=10%>ID</th>
-                <th width=10%>Инв. №</th>
-                <th width=25%>Устройство</th>
-                <th width=25%>Отдел</th>             
-                <th width=20%>Состояние</th>                
+                <th width=10%><i class="fas "></i>Инв. №</th>
+                <th width=25%><i class="fas "></i>Устройство</th>
+                <th width=25%><i class="fas "></i>Отдел</th>             
+                <th width=20%><i class="fas "></i>Состояние</th>                
                 <th width=10%>Controls</th>
             </tr>
             </thead>
@@ -38,10 +38,10 @@
             @endforeach
             </tbody>
         </table>
-        <div class="alert alert-dark w-100" role="alert">
+        {{-- <div class="alert alert-dark w-100" role="alert">
             Количество записей: <strong class="text-danger">{{ $devices->count() }}</strong>
-        </div>
-        <p></p>
+        </div> --}}
+        {{ $devices->links() }}
     </div>
 </div>
 @endsection

@@ -62,20 +62,24 @@
                             <div class="col-md-6">
                                 <select class="form-control" id="role" name="role">
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role }}">{{ $role }}</option>
+                                        @if (isset($id))
+                                            <option value="{{ $role }}" {{ $role === $user->role ? 'selected' : '' }}>{{ $role }}</option>
+                                        @else 
+                                            <option value="{{ $role }}">{{ $role }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
                         </div>    
                         
-                        @if (isset($id))
+                        {{-- @if (isset($id)) --}}
                             <div class="form-group row">
                                 <div class="col-md-6 offset-md-4">
                                     <div class="form-check">
                                         @if (isset($id))
-                                            <input class="form-check-input" type="checkbox" name="isblock" id="block" value="1" {{ $user->isblock == 0 ? '' : 'checked' }}>
+                                            <input class="form-check-input" type="checkbox" name="isblock" id="block" {{ $user->isblock == 0 ? '' : 'checked' }}>
                                         @else
-                                            <input class="form-check-input" type="checkbox" name="isblock" id="isblock" value="1">
+                                            <input class="form-check-input" type="checkbox" name="isblock" id="isblock">
                                         @endif
                                         
                                         <label class="form-check-label" for="isblock">
@@ -84,7 +88,7 @@
                                     </div>
                                 </div>
                             </div>   
-                        @endif
+                        {{-- @endif --}}
                         
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

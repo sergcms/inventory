@@ -56,7 +56,7 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('show-form-report-department') }}">Отчет по отделу</a>
                                     <a class="dropdown-item" href="{{ route('show-form-report-device') }}">Отчет по устройству</a>
-                                    {{-- <a class="dropdown-item" href="{{ route('info') }}">Отчет по инв. номеру</a> --}}
+                                    <a class="dropdown-item" href="{{ route('show-form-report-info') }}">Отчет по инв. номеру</a>
                                 </div>
                             </li>
                         </ul>

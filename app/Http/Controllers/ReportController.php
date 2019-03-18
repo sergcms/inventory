@@ -15,19 +15,19 @@ class ReportController extends Controller
     public function showForm(Request $request)
     {
         $list = [];
-        
-        if ($request->getPathInfo() == "/report/department") {
-            $isDevice = false;
 
-            $list = Department::get();
-
-        } elseif ($request->getPathInfo() == "/report/device") {
-            $isDevice = true;
-
-            $list = Device::get();
-        } else {
-
-            return view('form.report', ['list' => $list]);
+        switch ($request->getPathInfo()) {
+            case '/report/department':
+                $isDevice = false;
+                $list = Department::get();
+                break;
+            case '/report/device':
+                $isDevice = true;
+                $list = Device::get();
+                break;
+            case '/report/card':
+                return view('form.report-card');
+                break;
         }
 
         return view('form.report', ['list' => $list, 'isdevice' => $isDevice]);
@@ -36,13 +36,21 @@ class ReportController extends Controller
      /**
      * show one card device
      */
-    public function report($id)
+    public function report(Request $request, $id = '')
     {
-        $device = DB::table('cards')
-            ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id')
-            ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
-            ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
-            ->where('cards.id', $id)->first();
+        if (!$id) {
+            $device = DB::table('cards')
+                ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id')
+                ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
+                ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
+                ->where('cards.inventory', $request->inventory)->first();
+        } else {
+            $device = DB::table('cards')
+                ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id')
+                ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
+                ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
+                ->where('cards.id', $id)->first();
+        }
         
         if (empty($device)) {
             abort(404);

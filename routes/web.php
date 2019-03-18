@@ -79,5 +79,8 @@ Route::prefix("/report")->middleware(['auth', 'isblock'])->group(function () {
     Route::get('/department', 'ReportController@showForm')->name('show-form-report-department');
     Route::post('/department', 'ReportController@showReport')->name('report-department');
 
+    Route::get('/card', 'ReportController@showForm')->name('show-form-report-info');
+    Route::post('/card', 'ReportController@report')->name('report-info');
+
     Route::get('/{id}', 'ReportController@report')->name('info');
 });

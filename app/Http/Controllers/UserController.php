@@ -21,7 +21,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'min:5',
                 Rule::unique('users')->ignore($request->id),
             ],
-            'password' => ['required', 'string', 'min:6'],             
+            // 'password' => ['required', 'string', 'min:6'],             
         ];
         
         return Validator::make($request->all(), $fields)->validate();
@@ -34,7 +34,7 @@ class UserController extends Controller
     {
         $users = User::get();
 
-        return view('list.users', ['users' => $users]);
+        return view('admin.users', ['users' => $users]);
     }
 
     /**
@@ -42,14 +42,14 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        $request->isblock = $request->isblock ?? 0;
+        $this->validator($request); 
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role, 
-            // 'isblock' => $request->isblock === '1' ? 1 : 0
+            'isblock' => $request->has('isblock') ? 1 : 0,
         ]);
 
         return redirect(route('user'));
@@ -63,10 +63,10 @@ class UserController extends Controller
         if ($id) {
             $user = User::find($id);
             
-            return view('form.user', ['user' => $user, 'id' => $id, 'roles' => ['admin', 'manager', 'user']]);
+            return view('admin.form.user', ['user' => $user, 'id' => $id, 'roles' => ['admin', 'manager', 'user']]);
         }
 
-        return view('form.user', ['roles' => ['admin', 'manager', 'user']]);
+        return view('admin.form.user', ['roles' => ['admin', 'manager', 'user']]);
     }
       
     /**
@@ -74,7 +74,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->isblock = $request->isblock ?? 0;
+        $this->validator($request); 
 
         User::where('id', $id)
             ->update([
@@ -82,7 +82,7 @@ class UserController extends Controller
             'email' => $request->email,    
             // 'password' => Hash::make($request->password),
             'role' => $request->role, 
-            'isblock' => $request->isblock === '1' ? 1 : 0,
+            'isblock' => $request->has('isblock') ? 1 : 0,
         ]);
 
         return redirect(route('user'));

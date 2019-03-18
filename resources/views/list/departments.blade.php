@@ -10,28 +10,29 @@
         <table class="table table-hover table-responsive">
             <thead>
             <tr>
-                {{-- <th width=10%>ID</th> --}}
-                <th width=20%>Отдел</th>             
-                <th width=40%>Адрес</th>
-                <th width=30%>Ответственный</th>             
+                <th width=10%>@sortablelink('id', 'ID')</th>
+                <th width=20%>@sortablelink('department', 'Отдел')</th>             
+                <th width=30%>@sortablelink('address', 'Адрес')</th>
+                <th width=30%>@sortablelink('user.name', 'Ответственный')</th>             
                 <th width=10%>Controls</th>
             </tr>
             </thead>
             <tbody>
             @foreach ($departments as $oneDepartment)
                 <tr>
-                    {{-- <td>{{ $oneDepartment->department_id }}</td> --}}
+                    <td>{{ $oneDepartment->id }}</td>
                     <td>{{ $oneDepartment->department }}</td>
                     <td>{{ $oneDepartment->address ?? '-'}}</td>
-                    <td>{{ $oneDepartment->name ?? auth()->user()->name }}</td>
+                    <td>{{ $oneDepartment->user->name ?? auth()->user()->name }}</td>
                     <td>
-                        <a href="{{ route('department-edit', [$oneDepartment->department_id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
-                        <a href="{{ route('department-delete', [$oneDepartment->department_id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
+                        <a href="{{ route('department-edit', [$oneDepartment->id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
+                        <a href="{{ route('department-delete', [$oneDepartment->id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </div>
+    {{ $departments->appends(\Request::except('page'))->render() }}
 </div>
 @endsection

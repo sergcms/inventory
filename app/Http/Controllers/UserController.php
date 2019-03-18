@@ -32,7 +32,7 @@ class UserController extends Controller
      */ 
     public function list()
     {
-        $users = User::get();
+        $users = User::sortable()->paginate(15);
 
         return view('admin.users', ['users' => $users]);
     }

@@ -12,10 +12,10 @@
         <table class="table table-hover table-responsive">
             <thead>
             <tr>
-                <th width=5%>ID</th>
-                <th width=30%>Name</th>
-                <th width=35%>Email</th>
-                <th width=10%>Роль</th>
+                <th width=10%>@sortablelink('id', 'ID')</th>
+                <th width=30%>@sortablelink('name', 'Name')</th>
+                <th width=30%>@sortablelink('email', 'Email')</th>
+                <th width=10%>@sortablelink('role', 'Роль')</th>
                 <th width=10%>Состояние</th>                
                 @if (auth()->user()->role == 'admin')
                     <th width=10%>Controls</th>
@@ -41,5 +41,6 @@
             </tbody>
         </table>
     </div>
+    {{ $users->appends(\Request::except('page'))->render() }}
 </div>
 @endsection

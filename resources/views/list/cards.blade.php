@@ -14,11 +14,11 @@
         <table class="table table-hover table-responsive" id="cards">
             <thead>
             <tr>
-                <th width=10%>ID</th>
-                <th width=10%><i class="fas "></i>Инв. №</th>
-                <th width=25%><i class="fas "></i>Устройство</th>
-                <th width=25%><i class="fas "></i>Отдел</th>             
-                <th width=20%><i class="fas "></i>Состояние</th>                
+                <th width=10%>@sortablelink('id', 'ID')</th>
+                <th width=10%>@sortablelink('inventory', 'Инв. №')</th>
+                <th width=25%>@sortablelink('device', 'Устройство')</th>
+                <th width=25%>@sortablelink('department', 'Отдел')</th>             
+                <th width=20%>@sortablelink('condition', 'Состояние')</th>                
                 <th width=10%>Controls</th>
             </tr>
             </thead>
@@ -41,7 +41,7 @@
         {{-- <div class="alert alert-dark w-100" role="alert">
             Количество записей: <strong class="text-danger">{{ $devices->count() }}</strong>
         </div> --}}
-        {{ $devices->links() }}
+        {{ $devices->appends(\Request::except('page'))->render() }}
     </div>
 </div>
 @endsection

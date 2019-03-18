@@ -38,7 +38,7 @@ class CardController extends Controller
                 ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
                 ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
                 ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
-                ->orderBy('cards_id')->paginate(20);
+                ->orderBy('cards_id')->sortable()->paginate(15);
 
         return view('list.cards', ['devices' => $devices]);
     }

@@ -10,8 +10,8 @@
         <table class="table table-hover table-responsive">
             <thead>
             <tr>
-                <th width=10%>ID</th>
-                <th width=70%>Устройство</th>             
+                <th width=10%>@sortablelink('id', 'ID')</th>
+                <th width=70%>@sortablelink('device', 'Устройство')</th>             
                 <th width=20%>Controls</th>
             </tr>
             </thead>
@@ -29,5 +29,6 @@
             </tbody>
         </table>
     </div>
+    {{ $devices->appends(\Request::except('page'))->render() }}
 </div>
 @endsection

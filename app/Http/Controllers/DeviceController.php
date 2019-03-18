@@ -29,7 +29,7 @@ class DeviceController extends Controller
      */
     public function list()
     {
-        $devices = Device::all();
+        $devices = Device::sortable()->paginate(15);
 
         return view('list.devices', ['devices' => $devices]);
     }

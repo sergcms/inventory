@@ -33,12 +33,14 @@ class DepartmentController extends Controller
     public function list()
     {
         if (auth()->user()->role == 'admin') {
-            $departments = DB::table('departments')
-            ->select('departments.*', 'users.*', 'users.id as user_id', 'departments.id as department_id' )
-            ->leftjoin('users', 'users.id', '=', 'departments.user_id')
-            ->orderBy('departments.id')->get();
+            // $departments = DB::table('departments')
+            // ->select('departments.*', 'users.*', 'users.id as user_id', 'departments.id as department_id' )
+            // ->leftjoin('users', 'users.id', '=', 'departments.user_id')
+            // ->orderBy('departments.id')->sortable()->paginate(15);
+
+            $departments = Department::with('user')->sortable()->paginate(15);
         } elseif (auth()->user()->role == 'manager') {            
-            $departments = User::find(auth()->user()->id)->departments;
+            $departments = User::find(auth()->user()->id)->departments->sortable()->paginate(15);
         }
         
         return view('list.departments', ['departments' => $departments,]);

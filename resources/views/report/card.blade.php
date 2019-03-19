@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-between align-items-start">
-        <h2>{{ $device->device }}</h2>
+        <h2>{{ $device->device->device }}</h2>
     </div>
     <div class="row mt-3 flex-column">
         @if ($device->photo != '')
@@ -11,8 +11,8 @@
         @endif             
         <ul class="device-characteristics mt-3">
             <li>Инв. №: <span>{{ $device->inventory }}</span></li>
-            <li>Устройство: <span>{{ $device->device }}</span></li>
-            <li>Местонахождение: <span>{{ $device->department }}</span></li>             
+            <li>Устройство: <span>{{ $device->device->device }}</span></li>
+            <li>Местонахождение: <span>{{ $device->department->department }}</span></li>             
             <li>Состояние: <span>{{ $device->condition }}</span></li>                
             <li>Модель: <span>{{ $device->model }}</span></li>
             @if ($device->characteristic != '')

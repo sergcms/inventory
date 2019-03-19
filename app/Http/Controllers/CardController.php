@@ -35,8 +35,19 @@ class CardController extends Controller
     public function list()
     {
         $countPerPage = (int)env('COUNT_PER_PAGE');
-        $devices = Card::with('department', 'device')->sortable()->paginate($countPerPage);
 
+        switch (auth()->user()->role) {
+            case 'admin':
+                $devices = Card::with('department', 'device')
+                    ->sortable()->paginate($countPerPage);
+                break;
+            case 'manager':
+                $devices = Card::with('department', 'device', 'user')
+                    ->where('user_id', auth()->user()->id)
+                    ->sortable()->paginate($countPerPage);
+                break;
+        }
+        
         return view('list.cards', ['devices' => $devices]);
     }
     
@@ -80,6 +91,7 @@ class CardController extends Controller
             'model' => $request->model,
             'device_id' => $request->device,
             'department_id' => $request->department,
+            'user_id' => auth()->user()->id,
             'characteristic' => $request->characteristic,
             'condition' => $request->condition,
             'movement' => $request->movement,

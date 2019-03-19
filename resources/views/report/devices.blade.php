@@ -10,18 +10,18 @@
             <table class="table table-hover table-responsive">
                 <thead>
                 <tr>
-                    <th width=10%>@sortablelink('id', 'ID')</th>
-                    <th width=10%>@sortablelink('inventory', 'Инв. №')</th>
-                    <th width=30%>@sortablelink('device.device', 'Устройство')</th>
-                    <th width=30%>@sortablelink('department.department', 'Отдел')</th>             
-                    <th width=20%>@sortablelink('condition', 'Состояние')</th> 
+                    <th width=10%>ID</th>
+                    <th width=10%>Инв. №</th>
+                    <th width=30%>Устройство</th>
+                    <th width=30%>Отдел</th>             
+                    <th width=20%>Состояние</th> 
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($devices as $device)
                     <tr>
                         <td>{{ $device->id }}</td>
-                        <td>{{ $device->inventory }}</td>
+                        <td><a href="{{ route('info', [$device->id]) }}"> {{ $device->inventory }} </a></td>
                         <td>{{ $device->device->device }}</td>
                         <td>{{ $device->department->department }}</td>
                         <td>{{ $device->condition }}</td>

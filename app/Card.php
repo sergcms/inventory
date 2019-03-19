@@ -46,4 +46,9 @@ class Card extends Model
     {
         return $this->belongsTo('App\Device');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

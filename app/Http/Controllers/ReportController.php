@@ -40,16 +40,10 @@ class ReportController extends Controller
     public function report(Request $request, $id = '')
     {
         if (!$id) {
-            $device = DB::table('cards')
-                ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id')
-                ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
-                ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
-                ->where('cards.inventory', $request->inventory)->first();
+            $device = Card::with('department', 'device')
+                        ->where('cards.inventory', $request->inventory)->first();
         } else {
-            $device = DB::table('cards')
-                ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id')
-                ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
-                ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
+            $device = Card::with('department', 'device')
                 ->where('cards.id', $id)->first();
         }
         
@@ -65,24 +59,39 @@ class ReportController extends Controller
      */
     public function showReport(Request $request)
     {
+        $countPerPage = (int)env('COUNT_PER_PAGE');
+
         if ($request->isdevice) {
-            $list = DB::table('cards')
-                ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
-                ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
-                ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
-                ->where('devices.id', $request->search)
-                ->orderBy('cards_id')->get();
 
-                $name = Device::where('devices.id', $request->search)->first()->device;
+            switch (auth()->user()->role) {
+                case 'admin':
+                    $list = Card::with('department', 'device', 'user')
+                        ->where('device_id', $request->search)
+                        ->sortable()->paginate($countPerPage);
+                    break;
+                case 'manager':
+                    $list = Card::with('department', 'device', 'user')
+                        ->where('device_id', $request->search)
+                        ->where('user_id', auth()->user()->id)
+                        ->sortable()->paginate($countPerPage);
+                    break;
+            }
+            
+            $name = Device::where('devices.id', $request->search)->first()->device;
         } else {
-            // $list = DB::table('cards')
-            //     ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
-            //     ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
-            //     ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
-            //     ->where('departments.id', $request->search)
-            //     ->orderBy('cards_id')->get();
-
-            $list = Card::with('department', 'device')->where('department_id', $request->search)->sortable()->paginate(15);
+            switch (auth()->user()->role) {
+                case 'admin':
+                    $list = Card::with('department', 'device', 'user')
+                        ->where('department_id', $request->search)
+                        ->sortable()->paginate($countPerPage);
+                    break;
+                case 'manager':
+                    $list = Card::with('department', 'device', 'user')
+                        ->where('department_id', $request->search)
+                        ->where('user_id', auth()->user()->id)
+                        ->sortable()->paginate($countPerPage);
+                    break;
+            }
 
             $name = Department::where('departments.id', $request->search)->first()->department;
         }

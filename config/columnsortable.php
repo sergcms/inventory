@@ -7,18 +7,15 @@ return [
     */
     'columns'                       => [
         'alpha'   => [
-            'rows'  => ['description', 'email', 'name', 'slug'],
-            // 'class' => 'fa fa-sort-alpha',
+            'rows'  => ['department', 'email', 'name', 'slug', 'address', 'device', 'condition'],
             'class' => 'fas fa-sort-amount',
         ],
         'amount'  => [
             'rows'  => ['amount', 'price'],
-            // 'class' => 'fa fa-sort-amount',
             'class' => 'fas fa-sort-amount',
         ],
         'numeric' => [
-            'rows'  => ['created_at', 'updated_at', 'level', 'id', 'phone_number'],
-            // 'class' => 'fa fa-sort-numeric',
+            'rows'  => ['created_at', 'inventory', 'id', 'user_id', 'department_id', 'device_id'],
             'class' => 'fas fa-sort-amount',
         ],
     ],
@@ -36,7 +33,6 @@ return [
     /*
     icon that shows when generating sortable link while column is not sorted
      */
-    // 'sortable_icon'                 => 'fa fa-sort',
     'sortable_icon'                 => 'fas fa-sort',
 
     /*

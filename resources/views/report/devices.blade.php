@@ -10,20 +10,20 @@
             <table class="table table-hover table-responsive">
                 <thead>
                 <tr>
-                    <th width=10%>ID</th>
-                    <th width=15%>Инв. №</th>
-                    <th width=25%>Устройство</th>
-                    <th width=30%>Отдел</th>             
-                    <th width=20%>Состояние</th>                
+                    <th width=10%>@sortablelink('id', 'ID')</th>
+                    <th width=10%>@sortablelink('inventory', 'Инв. №')</th>
+                    <th width=30%>@sortablelink('device.device', 'Устройство')</th>
+                    <th width=30%>@sortablelink('department.department', 'Отдел')</th>             
+                    <th width=20%>@sortablelink('condition', 'Состояние')</th> 
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($devices as $device)
                     <tr>
-                        <td>{{ $device->cards_id }}</td>
+                        <td>{{ $device->id }}</td>
                         <td>{{ $device->inventory }}</td>
-                        <td>{{ $device->device }}</td>
-                        <td>{{ $device->department }}</td>
+                        <td>{{ $device->device->device }}</td>
+                        <td>{{ $device->department->department }}</td>
                         <td>{{ $device->condition }}</td>
                     </tr>
                 @endforeach
@@ -32,5 +32,8 @@
         @endif
         
     </div>
+    @if ($devices->isNotEmpty())
+        {{ $devices->appends(\Request::except('page'))->render() }}
+    @endif
 </div>
 @endsection

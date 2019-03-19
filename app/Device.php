@@ -17,4 +17,9 @@ class Device extends Model
      * @var array
      */
     public $sortable = [ 'id', 'device', ];
+
+    public function card()
+    {
+        return $this->hasOne('App\Card');
+    }
 }

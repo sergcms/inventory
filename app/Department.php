@@ -19,11 +19,16 @@ class Department extends Model
      * @var array
      */
     public $sortable = [
-        'id', 'department', 'address', 'user.name',
+        'id', 'department', 'address', 'user.name', 'user_id'
     ];
 
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function card()
+    {
+        return $this->hasOne('App\Card');
     }
 }

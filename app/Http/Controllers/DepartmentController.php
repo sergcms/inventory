@@ -32,15 +32,16 @@ class DepartmentController extends Controller
      */
     public function list()
     {
-        if (auth()->user()->role == 'admin') {
-            // $departments = DB::table('departments')
-            // ->select('departments.*', 'users.*', 'users.id as user_id', 'departments.id as department_id' )
-            // ->leftjoin('users', 'users.id', '=', 'departments.user_id')
-            // ->orderBy('departments.id')->sortable()->paginate(15);
+        $countPerPage = (int)env('COUNT_PER_PAGE');
 
-            $departments = Department::with('user')->sortable()->paginate(15);
-        } elseif (auth()->user()->role == 'manager') {            
-            $departments = User::find(auth()->user()->id)->departments->sortable()->paginate(15);
+        switch (auth()->user()->role) {
+            case 'admin':
+                $departments = Department::with('user')->sortable()->paginate($countPerPage);
+                break;
+            case 'manager':
+                // $departments = User::find(auth()->user()->id)->departments;
+                $departments = Department::where('user_id', auth()->user()->id)->sortable()->paginate($countPerPage);
+                break;
         }
         
         return view('list.departments', ['departments' => $departments,]);
@@ -54,9 +55,10 @@ class DepartmentController extends Controller
         if ($id) {
             $department = Department::find($id);
             $users = User::get();
-            
+
             return view('form.department', ['department' => $department, 'id' => $id, 'users' => $users]);
         }
+
         return view('form.department');
     }
 
@@ -66,11 +68,13 @@ class DepartmentController extends Controller
     public function create(Request $request)
     {
         $this->validator($request);
+
         Department::create([
             'department' => $request->department,
             'address' => $request->address,
             'user_id' => auth()->user()->id,
         ]);
+        
         return redirect(route('department'));
     }
 
@@ -80,12 +84,22 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {       
         $this->validator($request);
-        Department::where('id', $id)
-            ->update([
-            'department' => $request->department,
-            'address' => $request->address,
-            'user_id' => $request->user,
-        ]);
+
+        if ($request->user) {
+            Department::where('id', $id)
+                ->update([
+                'department' => $request->department,
+                'address' => $request->address,
+                'user_id' => $request->user,
+            ]);
+        } else {
+            Department::where('id', $id)
+                ->update([
+                'department' => $request->department,
+                'address' => $request->address,
+            ]);
+        }
+
         return redirect(route('department'));
     }
 
@@ -95,6 +109,7 @@ class DepartmentController extends Controller
     public function delete($id)
     {
         Department::find($id)->delete();
+
         return redirect(route('department'));
     }
 }

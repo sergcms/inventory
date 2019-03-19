@@ -34,11 +34,8 @@ class CardController extends Controller
      */
     public function list()
     {
-        $devices = DB::table('cards')
-                ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
-                ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
-                ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
-                ->orderBy('cards_id')->sortable()->paginate(15);
+        $countPerPage = (int)env('COUNT_PER_PAGE');
+        $devices = Card::with('department', 'device')->sortable()->paginate($countPerPage);
 
         return view('list.cards', ['devices' => $devices]);
     }

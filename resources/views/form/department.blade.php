@@ -41,14 +41,14 @@
                         </div>
                         <!-- / form-group -->
 
-                        @if (isset($id))
+                        @if ((isset($id)) && (auth()->user()->role == 'admin'))
                             <div class="form-group row">
                                 <label for="user" class="col-md-4 col-form-label text-md-right">{{ __('Ответственный') }}</label>
 
                                 <div class="col-md-6">
                                     <select class="form-control" id="user" name="user">
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}" {{ auth()->user()->id == $user->id ? 'selected' : '' }} >{{ $user->name }}</option>    
+                                            <option value="{{ $user->id }}" {{ $department->user_id == $user->id ? 'selected' : '' }} >{{ $user->name }}</option>    
                                         @endforeach
                                     </select>
                                 </div>

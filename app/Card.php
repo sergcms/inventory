@@ -32,6 +32,18 @@ class Card extends Model
         'model',
         'movement', 
         'condition',
-        'department_id'
+        'department_id',
+        'device.device',
+        'department.department'
     ];
+
+    public function department()
+    {
+        return $this->belongsTo('App\Department');
+    }
+
+    public function device()
+    {
+        return $this->belongsTo('App\Device');
+    }
 }

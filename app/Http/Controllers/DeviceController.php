@@ -29,7 +29,10 @@ class DeviceController extends Controller
      */
     public function list()
     {
-        $devices = Device::sortable()->paginate(15);
+        $countPerPage = (int)env('COUNT_PER_PAGE');
+        $devices = Device::sortable()->paginate($countPerPage);
+
+        $departments = Department::where('user_id', auth()->user()->id)->sortable()->paginate($countPerPage);
 
         return view('list.devices', ['devices' => $devices]);
     }

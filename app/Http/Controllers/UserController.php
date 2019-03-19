@@ -32,7 +32,8 @@ class UserController extends Controller
      */ 
     public function list()
     {
-        $users = User::sortable()->paginate(15);
+        $countPerPage = (int)env('COUNT_PER_PAGE');
+        $users = User::sortable()->paginate($countPerPage);
 
         return view('admin.users', ['users' => $users]);
     }

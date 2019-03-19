@@ -16,8 +16,8 @@
             <tr>
                 <th width=10%>@sortablelink('id', 'ID')</th>
                 <th width=10%>@sortablelink('inventory', 'Инв. №')</th>
-                <th width=25%>@sortablelink('device', 'Устройство')</th>
-                <th width=25%>@sortablelink('department', 'Отдел')</th>             
+                <th width=25%>@sortablelink('device.device', 'Устройство')</th>
+                <th width=25%>@sortablelink('department.department', 'Отдел')</th>             
                 <th width=20%>@sortablelink('condition', 'Состояние')</th>                
                 <th width=10%>Controls</th>
             </tr>
@@ -25,14 +25,14 @@
             <tbody>
             @foreach ($devices as $device)
                 <tr>
-                    <td>{{ $device->cards_id }}</td>
-                    <td>{{ $device->inventory }}</td>
-                    <td>{{ $device->device }}</td>
-                    <td>{{ $device->department }}</td>
+                    <td>{{ $device->id }}</td>
+                    <td><a href="{{ route('info', [$device->id]) }}"> {{ $device->inventory }} </a></td>
+                    <td>{{ $device->device->device }}</td>
+                    <td>{{ $device->department->department }}</td>
                     <td>{{ $device->condition }}</td>
                     <td>
-                        <a href="{{ route('card-edit', [$device->cards_id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
-                        <a href="{{ route('card-delete', [$device->cards_id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
+                        <a href="{{ route('card-edit', [$device->id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
+                        <a href="{{ route('card-delete', [$device->id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
                     </td>
                 </tr>
             @endforeach

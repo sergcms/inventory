@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Card;
 use App\Device;
 use App\Department;
 use Illuminate\Http\Request;
@@ -74,12 +75,14 @@ class ReportController extends Controller
 
                 $name = Device::where('devices.id', $request->search)->first()->device;
         } else {
-            $list = DB::table('cards')
-                ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
-                ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
-                ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
-                ->where('departments.id', $request->search)
-                ->orderBy('cards_id')->get();
+            // $list = DB::table('cards')
+            //     ->select('cards.*', 'departments.*', 'devices.*', 'departments.id as department_id', 'devices.id as device_id', 'cards.id as cards_id')
+            //     ->leftjoin('departments', 'departments.id', '=', 'cards.department_id')
+            //     ->leftjoin('devices', 'devices.id', '=', 'cards.device_id')
+            //     ->where('departments.id', $request->search)
+            //     ->orderBy('cards_id')->get();
+
+            $list = Card::with('department', 'device')->where('department_id', $request->search)->sortable()->paginate(15);
 
             $name = Department::where('departments.id', $request->search)->first()->department;
         }

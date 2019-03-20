@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Validator;
 use App\Device;
+use App\Department;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +32,6 @@ class DeviceController extends Controller
     {
         $countPerPage = (int)env('COUNT_PER_PAGE');
         $devices = Device::sortable()->paginate($countPerPage);
-
         $departments = Department::where('user_id', auth()->user()->id)->sortable()->paginate($countPerPage);
 
         return view('list.devices', ['devices' => $devices]);

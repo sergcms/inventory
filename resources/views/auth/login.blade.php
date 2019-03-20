@@ -53,8 +53,8 @@
                             <label for="ReCaptcha" class="col-md-4 col-form-label text-md-right">{{ __('Recaptcha') }}</label>
 
                             <div class="col-md-6">
-                                {{-- {!! NoCaptcha::renderJs() !!}
-                                {!! NoCaptcha::display() !!} --}}
+                                {!! NoCaptcha::renderJs() !!}
+                                {!! NoCaptcha::display() !!}
 
                                 @if ($errors->has('ReCaptcha'))
                                     <span class="invalid-feedback" role="alert">

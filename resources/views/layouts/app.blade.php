@@ -7,10 +7,13 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>TH "LoginS"</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- lightgallery -->
+    <script src="{{ asset('js/lightgallery.min.js') }}" ></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,9 +22,13 @@
     <!-- Fontawesome icons-->
     <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet" type="text/css">
 
+    <!-- lightgallery Style-->
+    <link href="{{ asset('css/lightgallery.css') }}" rel="stylesheet">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">

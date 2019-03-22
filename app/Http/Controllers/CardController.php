@@ -10,6 +10,8 @@ use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class CardController extends Controller
@@ -146,8 +148,14 @@ class CardController extends Controller
      */
     public function saveImage($image)
     {
-        Storage::putFileAs('/public/device/img', $image, $image->getClientOriginalName());        
-        
-        return '/device/img/' . $image->getClientOriginalName();
+        // Storage::putFileAs(public_path('images/device'), $image, $image->getClientOriginalName());
+
+        // Image::configure(array('driver' => 'imagick'));
+
+        Image::make($image)
+            ->resize(750, null, function ($constraint) { $constraint->aspectRatio(); })
+            ->save(public_path('images/device/' . $image->getClientOriginalName()));
+
+        return '/images/device/' . $image->getClientOriginalName();
     }
 }

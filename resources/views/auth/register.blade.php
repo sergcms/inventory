@@ -61,6 +61,21 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="ReCaptcha" class="col-md-4 col-form-label text-md-right">{{ __('Recaptcha') }}</label>
+
+                            <div class="col-md-6">
+                                {!! NoCaptcha::renderJs() !!}
+                                {!! NoCaptcha::display() !!}
+
+                                @if ($errors->has('ReCaptcha'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('ReCaptcha') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

@@ -2,12 +2,19 @@
 
 @section('content')
 <div class="container">
+    <script>
+        lightgallery.init({
+            enableZoom: false,
+            overlayOpacity: .25,        
+            fadeImage: false,
+        });
+    </script>
     <div class="row justify-content-between align-items-start">
         <h2>{{ $device->device->device }}</h2>
     </div>
     <div class="row mt-3 flex-column">
-        @if ($device->photo != '')
-            <img src="/storage{{ $device->photo }}" alt="" class="device-img">             
+        @if ($device->photo != '')               
+            <a rel="lightgallery" title="{{ $device->device->device }} - {{ $device->model }}" href="{{ $device->photo }}"><img src="{{ $device->photo }}" alt="" class="device-img"></a>         
         @endif             
         <ul class="device-characteristics mt-3">
             <li>Инв. №: <span>{{ $device->inventory }}</span></li>

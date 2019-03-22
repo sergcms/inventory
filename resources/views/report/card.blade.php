@@ -14,7 +14,9 @@
     </div>
     <div class="row mt-3 flex-column">
         @if ($device->photo != '')               
-            <a rel="lightgallery" title="{{ $device->device->device }} - {{ $device->model }}" href="{{ $device->photo }}"><img src="{{ $device->photo }}" alt="" class="device-img"></a>         
+            <div class="device-img">    
+                <a rel="lightgallery" title="{{ $device->device->device }} - {{ $device->model }}" href="{{ $device->photo }}"><img src="{{ $device->photo }}" alt="" class="img-thumbnail img-fluid"></a>         
+            </div>
         @endif             
         <ul class="device-characteristics mt-3">
             <li>Инв. №: <span>{{ $device->inventory }}</span></li>

@@ -23,25 +23,29 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($devices as $device)
-                <tr>
-                    <td>{{ $device->id }}</td>
-                    <td><a href="{{ route('info', [$device->id]) }}"> {{ $device->inventory }} </a></td>
-                    <td>{{ $device->device->device }}</td>
-                    <td>{{ $device->department->department }}</td>
-                    <td>{{ $device->condition }}</td>
-                    <td>
-                        <a href="{{ route('card-edit', [$device->id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
-                        <a href="{{ route('card-delete', [$device->id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
-                    </td>
-                </tr>
-            @endforeach
+            @if (isset($devices)) 
+                @foreach ($devices as $device)
+                    <tr>
+                        <td>{{ $device->id }}</td>
+                        <td><a href="{{ route('info', [$device->id]) }}"> {{ $device->inventory }} </a></td>
+                        <td>{{ $device->device->device }}</td>
+                        <td>{{ $device->department->department }}</td>
+                        <td>{{ $device->condition }}</td>
+                        <td>
+                            <a href="{{ route('card-edit', [$device->id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
+                            <a href="{{ route('card-delete', [$device->id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
         {{-- <div class="alert alert-dark w-100" role="alert">
             Количество записей: <strong class="text-danger">{{ $devices->count() }}</strong>
         </div> --}}
-        {{ $devices->appends(\Request::except('page'))->render() }}
+        @if (isset($devices))
+            {{ $devices->appends(\Request::except('page'))->render() }}
+        @endif
     </div>
 </div>
 @endsection

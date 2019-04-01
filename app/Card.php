@@ -19,6 +19,7 @@ class Card extends Model
         'comment',
         'department_id',
         'device_id',
+        'user_id',
     ];
 
     /**

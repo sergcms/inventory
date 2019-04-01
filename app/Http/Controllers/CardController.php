@@ -149,7 +149,6 @@ class CardController extends Controller
     public function saveImage($image)
     {
         // Storage::putFileAs(public_path('images/device'), $image, $image->getClientOriginalName());
-
         // Image::configure(array('driver' => 'imagick'));
 
         Image::make($image)

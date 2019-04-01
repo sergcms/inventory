@@ -17,7 +17,11 @@ Auth::routes();
 // Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/register', function () { return view('welcome'); });
+Route::get('/isblock', function () { 
+    Auth::logout();
+    Session::flush();
+    return view('isblock'); 
+});
 
 Route::prefix("/department")->middleware(['auth', 'isblock', 'role:admin' or 'role:manager'])->group(function () {
     

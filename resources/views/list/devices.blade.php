@@ -16,19 +16,23 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($devices as $oneDevice)
-                <tr>
-                    <td>{{ $oneDevice->id }}</td>
-                    <td>{{ $oneDevice->device }}</td>
-                    <td>
-                        <a href="{{ route('device-edit', [$oneDevice->id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
-                        <a href="{{ route('device-delete', [$oneDevice->id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
-                    </td>
-                </tr>
-            @endforeach
+            @if (isset($devices))
+                @foreach ($devices as $oneDevice)
+                    <tr>
+                        <td>{{ $oneDevice->id }}</td>
+                        <td>{{ $oneDevice->device }}</td>
+                        <td>
+                            <a href="{{ route('device-edit', [$oneDevice->id]) }}" class="btn-edit mr-2"><i class="fas fa-pen edit"></i></a>                       
+                            <a href="{{ route('device-delete', [$oneDevice->id]) }}" class="btn-delete mr-2" onclick="return confirm('Вы уверены?')"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
             </tbody>
         </table>
     </div>
-    {{ $devices->appends(\Request::except('page'))->render() }}
+    @if (isset($devices))
+        {{ $devices->appends(\Request::except('page'))->render() }}
+    @endif
 </div>
 @endsection
